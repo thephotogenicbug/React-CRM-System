@@ -1,0 +1,65 @@
+.welcome-header{
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.welcome-header-user-name{
+    font-weight: 500;
+    color: #05C96B;
+}
+
+.dashboard-cards{
+  margin-top: 50px;
+  border-radius: 8px;
+}
+
+.total-customers{
+    background: #545DB4;
+}
+.followup{
+    background:#959DEA
+}
+.interested{
+    background: #54B469;
+}
+.total-admissions{
+    background: #57b5f4;
+}
+
+.dues-followup{
+    background: #F47C57;
+}
+
+.card-numbers{
+   font-size: 48px;
+   color:#fff;
+   display: inline-block;
+}
+
+.card-title{
+    color:#fff
+}
+
+.icons{
+    float: right;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: #fff;
+}
+
+
+@media screen and (min-width:1px) and (max-width:768px){
+    .welcome-header{
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 120px;
+    }
+    .dashboard-cards{
+        margin-top: 50px;
+        border-radius: 8px;
+        width: 300px;
+        margin-left: 120px;
+       
+      }
+}
