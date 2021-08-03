@@ -3,14 +3,32 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import SideNavBar from './Components/SideBar/SideNavBar';
 import Dashboard from './Components/Dashboard/Dashboard';
-
+import Register from './Components/Register/Register';
+import Login from './Components/login/Login';
+import NewCustomer from './Components/newcustomer/newcustomer'
+import Allcustomer from './Components/customerdata/customerdata';
+const Resume = () =>   <> <SideNavBar/> <h2>My Resume</h2></>;
 function App() {
-  return (
-    <Router >
-     <SideNavBar/>
-      <Dashboard/>
-    </Router>
-  );
+  if(localStorage.getItem("id") == null){
+    return(
+      <Router>
+        
+         <Route exact path='/register' component={Register}/>
+         <Route exact path='/' component={Login} />
+      </Router>
+    )
+  } else{
+
+
+    return (
+      <Router >
+
+       <Route exact path='/' component={Dashboard} />
+       <Route exact path='/newcustomer' component={NewCustomer} />
+       <Route exact path='/allcustomer' component={Allcustomer} />
+      </Router>
+    );
+  }
 }
 
 export default App;
