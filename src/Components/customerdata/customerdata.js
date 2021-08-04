@@ -44,9 +44,9 @@ const Allcustomer =()=>{
                                     <td>{xcustomer.name}</td>
                                     <td>{xcustomer.mobile}</td>
                                     <td>{xcustomer.email}</td>
-                                    <td><Link to={`/${xcustomer.cid}/editemp`} 
-                                    className="btn btn-warning btn-sm m-2 text-white">
-                                        Edit Customer
+                                    <td><Link to={`/${xcustomer.cid}/editcustomer`} 
+                                    className="btn btn-danger btn-sm m-2 text-white">
+                                        View <i class="fas fa-eye"></i>
                                     </Link>
                                     </td>
                                     </tr>

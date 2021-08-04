@@ -18,14 +18,14 @@ const SideNavBar = () =>{
             <div className="divider mt-5"></div>
            <div className="main-menu">
                <ul>
-                   <li>
+                   <Link to="/">
                        <a className="menu-item">
                            <div className="menu-icon">
                            <i class="fas fa-tachometer-alt"></i>
                            </div>
                            <span>Dashboard</span>
                        </a>
-                   </li>
+                   </Link>
                    <Link to="/allcustomer">
                        <a className="menu-item">
                            <div className="menu-icon">

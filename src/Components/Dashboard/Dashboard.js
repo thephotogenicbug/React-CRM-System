@@ -11,7 +11,7 @@ class Dashboard extends Component{
         }
     }
     getData=()=>{
-        fetch("https://eduprov-api.herokuapp.com/api/contact")
+        fetch("")
         .then(response=>response.json())
         .then(result=>this.setState({
             mobile:result.mobile,
@@ -54,7 +54,7 @@ class Dashboard extends Component{
                     <div className="col-lg-3">
                     <div className="card dashboard-cards followup">
                             <div className="card-body">
-                                <h3 className="card-numbers">{this.state.mobile}</h3> <li className="fa fa-user icons"></li>
+                                <h3 className="card-numbers">0</h3> <li className="fa fa-user icons"></li>
                                 <h4 className="card-title">Today's Follow up</h4>
                             </div>
                         </div>

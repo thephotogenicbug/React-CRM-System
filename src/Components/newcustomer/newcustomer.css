@@ -2,3 +2,8 @@
     border-radius: 15px;
 }
 
+.progress-bar{
+    background: #05C96B;
+    height:4px;
+    width: 66px;
+}
