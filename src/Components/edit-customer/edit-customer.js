@@ -17,7 +17,8 @@ const EditCustomer = () =>{
     const[course, processCourse] = useState("");
     const[feedback, processFeedback] = useState("");
     const[date, processCurrentdate] = useState("");
-    const [oldfeedback, updateoldFeedback]=useState("");
+    const [oldfeedback, updateoldFeedback] =useState("");
+    const[message, updateMessage] = useState("");
 
    const getInfo = () =>{
        var url = "http://localhost:2222/getcustomerinfo";
@@ -43,13 +44,22 @@ const EditCustomer = () =>{
        getInfo();
    },[])
 
-
+// all old feedback
    const updateInfo = () =>{
-
-    let allfeedback = oldfeedback + "------" +feedback;
-    let input ={"cid":id, "feedback":allfeedback };
-    input = JSON.stringify(input);
+    let allfeedback = oldfeedback + "-----" +feedback;   
+    var url="http://localhost:2222/updatecustomer";
+    var jsonData ={
+        "cfeedback":allfeedback,
+        "cid": id
+    };
+    axios.post(url, jsonData)
+    .then(response =>{
+        updateMessage(response.data)
+    })
+    
    }
+
+//    
     return(
         <>
         <SideNavBar/>
@@ -59,6 +69,7 @@ const EditCustomer = () =>{
                    <div className="card edit-customer-card mt-5">
                        <div className="card-body">
                          <p className="text-danger">Customer id is :- {id}</p>
+                         <p>{message}</p>
                           <h5 style={{fontWeight:'bold'}}>Lead Update</h5>
                             <div className="form-group mb-3">
                             <label>Name</label>
@@ -122,13 +133,15 @@ const EditCustomer = () =>{
                             </div>
                             <div className="form-group mb-3">
                             <label>FeedBack</label>
-                            <textarea className="form-control" rows={5}>
+                            <textarea className="form-control" rows={5} value={feedback} onChange={obj=>processFeedback(obj.target.value)}>
 
                             </textarea>
+                          
                             </div>
-                            <div className="form-group">
+                            <div className="form-group" onClick={updateInfo}>
                                 <button className="btn btn-success">Update customer data</button>
                             </div>
+                            <small className="text-primary">{oldfeedback}</small>
                        </div>
                    </div>
                </div>
