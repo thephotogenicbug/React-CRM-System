@@ -7,6 +7,8 @@ import { useParams } from 'react-router';
 
 
 const EditCustomer = () =>{
+
+
     const {id} = useParams();
     const[name, processName] = useState("");
     const[location, processLocation] = useState("");
@@ -17,7 +19,7 @@ const EditCustomer = () =>{
     const[course, processCourse] = useState("");
     const[feedback, processFeedback] = useState("");
     const[date, processCurrentdate] = useState("");
-    const [oldfeedback, updateoldFeedback] =useState("");
+    const[newdate, processNewdate] = useState("");
     const[message, updateMessage] = useState("");
 
    const getInfo = () =>{
@@ -33,7 +35,6 @@ const EditCustomer = () =>{
         processEmail(response.data[0].email);
         processUniversity(response.data[0].university);
         processCourse(response.data[0].course);
-        processFeedback(response.data[0].feedback);
         processCurrentdate(response.data[0].date);
        })
 
@@ -42,20 +43,34 @@ const EditCustomer = () =>{
 
    useEffect(() =>{
        getInfo();
+       getData()
    },[])
 
-// all old feedback
-   const updateInfo = () =>{
-    let allfeedback = oldfeedback + "-----" +feedback;   
+  // update followup and feedback 
+   const updateInfo = () =>{ 
+    var empid = localStorage.getItem("id");
     var url="http://localhost:2222/updatecustomer";
     var jsonData ={
-        "cfeedback":allfeedback,
-        "cid": id
+        "cfeedback":feedback,
+        "cid": id,
+        "cfollowup":newdate,
+        "empid":empid
     };
     axios.post(url, jsonData)
     .then(response =>{
         updateMessage(response.data)
     })
+    getInfo();
+    processFeedback("");
+    
+   }
+
+   const[customerdata, updateCustomerdata] = useState([]);
+   const getData = ()=>{
+    const url = 'http://localhost:2222/getdata'
+    fetch(url)
+    .then(response => response.json())
+    .then(allcustomerdata => updateCustomerdata(allcustomerdata))
     
    }
 
@@ -128,12 +143,15 @@ const EditCustomer = () =>{
                             </div>
                             <div className="form-group mb-3">
                             <label>Follow up Date</label>
-                            <input type="date" className="form-control"
+                            <input type="datetime-local" className="form-control"
+                            onChange={obj=>processNewdate(obj.target.value)}
                             />
                             </div>
+                            <p>{message}</p>
                             <div className="form-group mb-3">
                             <label>FeedBack</label>
-                            <textarea className="form-control" rows={5} value={feedback} onChange={obj=>processFeedback(obj.target.value)}>
+                            <textarea className="form-control" rows={5}  
+                            onChange={obj=>processFeedback(obj.target.value)}>
 
                             </textarea>
                           
@@ -141,7 +159,6 @@ const EditCustomer = () =>{
                             <div className="form-group" onClick={updateInfo}>
                                 <button className="btn btn-success">Update customer data</button>
                             </div>
-                            <small className="text-primary">{oldfeedback}</small>
                        </div>
                    </div>
                </div>
