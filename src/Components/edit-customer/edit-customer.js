@@ -32,7 +32,7 @@ const EditCustomer = () =>{
     const[date, processCurrentdate] = useState("");
     const[newdate, processNewdate] = useState("");
     const[message, updateMessage] = useState("");
-    const[status, updateStatus] = useState("");
+    const[status, updateStatus] = useState("done");
 
    const getInfo = () =>{
        var url = "http://localhost:2222/getcustomerinfo";
@@ -72,10 +72,11 @@ const EditCustomer = () =>{
     };
     axios.post(url, jsonData)
     .then(response =>{
-        updateMessage(response.data)
-    })
+        updateMessage(response.data);
         getInfo();
         processFeedback("");
+    })
+        
    }
 
 
@@ -175,6 +176,8 @@ const EditCustomer = () =>{
             </div>
             <div className="row mb-3"></div>
         </div>
+
+
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
          
@@ -186,15 +189,18 @@ const EditCustomer = () =>{
             <textarea  id="feedback" name="feedback" required
             className="form-control mb-4" 
             onChange={obj=>processFeedback(obj.target.value)}  >
-              
-
             </textarea>
 
             <label >Followup Date</label>
             <input type="datetime-local" className="form-control mb-3"  required />
  
              <label>Status</label>
-              <input type="text" className="form-control"  disabled = {true}  value={status} />
+              <select value={status} onChange={obj=>updateStatus(obj.target.value)}>
+                  <option>Select</option>
+                  <option>HotLead</option>
+                  <option>RNR</option>
+                  <option></option>
+              </select>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -205,6 +211,8 @@ const EditCustomer = () =>{
           </Button>
         </Modal.Footer>
       </Modal>
+
+      
          </form>
         </>
     )

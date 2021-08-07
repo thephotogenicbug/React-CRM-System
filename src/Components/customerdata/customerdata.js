@@ -21,6 +21,33 @@ const Allcustomer =()=>{
         FetchCustomer();
     },[])
 
+    const Delete =()=>{
+        // var input ={"empid":localStorage.getItem("id")};
+        var url ="http://localhost:2222/deletequery";
+        axios.post(url)
+        .then(response => getCustomer(response.data))
+        
+      }
+
+
+    //   const  = () =>{ 
+    //     var empid = localStorage.getItem("id");
+    //     var url="http://localhost:2222/postlead";
+    //     var jsonData ={
+    //         "cfeedback":feedback,
+    //         "cid": id,
+    //         "cfollowup":newdate,
+    //         "empid":empid,
+    //         "cstatus":status
+    //     };
+    //     axios.post(url, jsonData)
+    //     .then(response =>{
+    //         updateMessage(response.data);
+    //         getInfo();
+    //         processFeedback("");
+    //     })
+            
+    //    }
  
 
     return(
@@ -57,9 +84,10 @@ const Allcustomer =()=>{
                                         View <i class="fas fa-eye"></i>
                                     </Link>
 
+
                                     </td>
                                     <td>
-                                        <button className="btn btn-sm m-2 btn-danger">
+                                        <button className="btn btn-sm m-2 btn-danger" onClick={Delete.bind(this,index)}>
                                             Done
                                         </button>
                                     </td> 
