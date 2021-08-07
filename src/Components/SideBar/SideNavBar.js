@@ -10,7 +10,7 @@ const SideNavBar = () =>{
         <div className={`side-menu ${!inactive ? "inactive" : ""}`}>
         <div className="top-section">
             <div className="logo">
-             <h6>Lead Management</h6>
+             <h5>LMS</h5>
             </div>
             <div onClick={() => setInactive(!inactive)} className="toggle-menu-btn">
             {!inactive ? <i class="fas fa-bars"></i> : <i className="fa fa-times" aria-hidden="true"></i>} 
@@ -47,7 +47,7 @@ const SideNavBar = () =>{
                            <div className="menu-icon">
                            <i class="fas fa-user-check"></i>
                            </div>
-                           <span>Admission Entry</span>
+                           <span>Track Attendance</span>
                        </a>
                    </li>
                   
@@ -55,15 +55,15 @@ const SideNavBar = () =>{
            </div>
            <div className="side-menu-footer mt-5">
               <div className="avatar">
-              <img src={Avatar} />
+              {/* <img src={Avatar} /> */}
               </div>
-              <Link onClick={logout}>
+              {/* <Link onClick={logout}>
               <div className="user-info">
                   <h5>{localStorage.getItem("name")}</h5>
                   <p>{localStorage.getItem("email")}</p>
                   <li class="fa fa-power-off text-danger"></li> <span className="text-danger">Logout</span>
               </div>
-              </Link>
+              </Link> */}
            </div>
         </div>
        </div>

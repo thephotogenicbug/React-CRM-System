@@ -12,12 +12,17 @@ import { useForm } from "react-hook-form";
 
 const EditCustomer = () =>{
 
-  const { register, handleSubmit, watch, errors } = useForm();
+ 
+    // Interested modal function
+    const [interested, setInterested] = useState(false);
+    const interestedhandleClose = () => setInterested(false);
+    const interestedModal = () => setInterested(true);
 
-    const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // Junk modal function
+    const[junk, setJunk] = useState(false);
+    const junkhandleClose = () => setJunk(false);
+    const junkModal = () => setJunk(true);
 
 
     const {id} = useParams();
@@ -32,7 +37,7 @@ const EditCustomer = () =>{
     const[date, processCurrentdate] = useState("");
     const[newdate, processNewdate] = useState("");
     const[message, updateMessage] = useState("");
-    const[status, updateStatus] = useState("done");
+    const[status, updateStatus] = useState("");
 
    const getInfo = () =>{
        var url = "http://localhost:2222/getcustomerinfo";
@@ -73,9 +78,11 @@ const EditCustomer = () =>{
     axios.post(url, jsonData)
     .then(response =>{
         updateMessage(response.data);
-        getInfo();
+        // getInfo();
         processFeedback("");
     })
+    window.location.href="http://localhost:3000/allcustomer"
+   
         
    }
 
@@ -161,11 +168,24 @@ const EditCustomer = () =>{
                             </div>
                               </div>
                             </div>
-                            <div className="form-group mb-3">
-                            <Button variant="primary" onClick={handleShow}>
-                                Lead
+                            <div className="row">
+                              <div className="col-md-2">
+                              <div className="form-group mb-3">
+                            <Button variant="primary" onClick={interestedModal}>
+                                Interested <i class="bi bi-hand-thumbs-up"></i>
                             </Button>
                             </div>
+                              </div>
+                              <div className="col-md-2">
+                              <div className="form-group mb-3">
+                            <Button variant="danger" onClick={junkModal}>
+                                Junk <i class="bi bi-trash"></i>
+                            </Button>
+                            </div>
+                              </div>
+
+                            </div>
+                            
                         
                        </div>
                    </div>
@@ -177,8 +197,64 @@ const EditCustomer = () =>{
             <div className="row mb-3"></div>
         </div>
 
+          {/* interested modal */}
+        <Modal show={interested} onHide={interestedhandleClose}>
+        <Modal.Header closeButton>
+         
+          <Modal.Title>Interested</Modal.Title>
+        </Modal.Header>
+          <p className="text-center text-success"> {message}</p>
+        <Modal.Body>
+            <label>Add FeedBack</label>
+            <textarea 
+            className="form-control mb-4" 
+            onChange={obj=>processFeedback(obj.target.value)} >
+            </textarea>
 
-        <Modal show={show} onHide={handleClose}>
+            <label >Followup Date</label>
+            <input type="datetime-local" className="form-control mb-3"  />
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={interestedhandleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={updateInfo}>
+             Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+       {/* junk modal */}
+      <Modal show={junk} onHide={junkhandleClose}>
+        <Modal.Header closeButton>
+         
+          <Modal.Title>Junk</Modal.Title>
+        </Modal.Header>
+          <p className="text-center text-success"> {message}</p>
+        <Modal.Body>
+            <label>Add FeedBack</label>
+            <textarea
+            className="form-control mb-4" 
+            onChange={obj=>processFeedback(obj.target.value)}  >
+            </textarea>
+
+            <label>Followup Date</label>
+            <input type="datetime-local" className="form-control mb-3"   />
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={junkhandleClose}>
+            Close
+          </Button>
+          <Button variant="primary" >
+             Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
          
           <Modal.Title>Lead Modal</Modal.Title>
@@ -210,7 +286,7 @@ const EditCustomer = () =>{
              Save Changes
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
 
       
          </form>
