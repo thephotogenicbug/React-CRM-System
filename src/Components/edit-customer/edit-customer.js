@@ -3,10 +3,21 @@ import axios from 'axios';
 import './edit-customer.css'
 import SideNavBar from '../SideBar/SideNavBar';
 import { useParams } from 'react-router';
+import Moment from 'react-moment';
+import 'moment-timezone';
+import { Modal, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 
 
 
 const EditCustomer = () =>{
+
+  const { register, handleSubmit, watch, errors } = useForm();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     const {id} = useParams();
@@ -21,6 +32,7 @@ const EditCustomer = () =>{
     const[date, processCurrentdate] = useState("");
     const[newdate, processNewdate] = useState("");
     const[message, updateMessage] = useState("");
+    const[status, updateStatus] = useState("");
 
    const getInfo = () =>{
        var url = "http://localhost:2222/getcustomerinfo";
@@ -36,6 +48,7 @@ const EditCustomer = () =>{
         processUniversity(response.data[0].university);
         processCourse(response.data[0].course);
         processCurrentdate(response.data[0].date);
+        updateStatus(response.data[0].status)
        })
 
    }
@@ -43,140 +56,156 @@ const EditCustomer = () =>{
 
    useEffect(() =>{
        getInfo();
-       getData()
+
    },[])
 
   // update followup and feedback 
    const updateInfo = () =>{ 
     var empid = localStorage.getItem("id");
-    var url="http://localhost:2222/updatecustomer";
+    var url="http://localhost:2222/postlead";
     var jsonData ={
         "cfeedback":feedback,
         "cid": id,
         "cfollowup":newdate,
-        "empid":empid
+        "empid":empid,
+        "cstatus":status
     };
     axios.post(url, jsonData)
     .then(response =>{
         updateMessage(response.data)
     })
-    getInfo();
-    processFeedback("");
-    
+        getInfo();
+        processFeedback("");
    }
 
-   const[customerdata, updateCustomerdata] = useState([]);
-   const getData = ()=>{
-    const url = 'http://localhost:2222/getdata'
-    fetch(url)
-    .then(response => response.json())
-    .then(allcustomerdata => updateCustomerdata(allcustomerdata))
-    
-   }
 
-//    
+
+
+   
     return(
         <>
         <SideNavBar/>
-        <div className="container">
+         <form>
+         <div className="container">
             <div className="row">
-               <div className="col-md-6">
+            <div className="col-md-1"></div>
+               <div className="col-md-10">
                    <div className="card edit-customer-card mt-5">
                        <div className="card-body">
                          <p className="text-danger">Customer id is :- {id}</p>
                          <p>{message}</p>
                           <h5 style={{fontWeight:'bold'}}>Lead Update</h5>
-                            <div className="form-group mb-3">
+                            <div className="row">
+                             <div className="col-md-4">
+                             <div className="form-group mb-3">
                             <label>Name</label>
                                 <input type="text" className="form-control"
                                 value={name}
                                 disabled = {true} />
                             </div>
-                            <div className="form-group mb-3">
-                            <label>Location</label>
-                            <input type="text" className="form-control"
-                            value={location}
-                            disabled = {true}
-                            />
-                            </div>
-                            <div className="form-group mb-3">
+                             </div>
+
+                              <div className="col-md-4">
+                              <div className="form-group mb-3">
                             <label>Mobile No</label>
                             <input type="text" className="form-control"
                             value={mobile}
                             disabled = {true}
                             />
                             </div>
-                            <div className="form-group mb-3">
+                              </div>
+                              <div className="col-md-4">
+                              <div className="form-group mb-3">
                             <label>Alt Mobile No</label>
                             <input type="text" className="form-control"
                             value={altmobile}
                             disabled = {true}
                             />
                             </div>
-                            <div className="form-group mb-3">
+                              </div>
+                              <div className="col-md-4">
+                              <div className="form-group mb-3">
                             <label>Email-ID</label>
                             <input type="text" className="form-control"
                             value={email}
                             disabled = {true}
                             />
                             </div>
-                            <div className="form-group mb-3">
+                              </div>
+                              <div className="col-md-4">
+                              <div className="form-group mb-3">
                             <label>University / College</label>
                             <input type="text" className="form-control"
                             value={university}
                             disabled = {true}
                             />
                             </div>
-                            <div className="form-group mb-3">
+                              </div>
+                              <div className="col-md-4">
+                              <div className="form-group mb-3">
                             <label>Course</label>
                             <input type="text" className="form-control"
                             value={course}
                             disabled = {true}
                             />
                             </div>
-                            <div className="form-group mb-3">
+                              </div>
+                              <div className="col-md-4">
+                              <div className="form-group mb-4">
                             <label>Current Date / Time</label>
                             <input type="text" className="form-control"
                             value={date}
                             disabled = {true}
                             />
                             </div>
+                              </div>
+                            </div>
                             <div className="form-group mb-3">
-                            <label>Follow up Date</label>
-                            <input type="datetime-local" className="form-control"
-                            onChange={obj=>processNewdate(obj.target.value)}
-                            />
+                            <Button variant="primary" onClick={handleShow}>
+                                Lead
+                            </Button>
                             </div>
-                            <p>{message}</p>
-                            <div className="form-group mb-3">
-                            <label>FeedBack</label>
-                            <textarea className="form-control" rows={5}  
-                            onChange={obj=>processFeedback(obj.target.value)}>
-
-                            </textarea>
-                          
-                            </div>
-                            <div className="form-group" onClick={updateInfo}>
-                                <button className="btn btn-success">Update customer data</button>
-                            </div>
+                        
                        </div>
                    </div>
                </div>
-               <div className="col-md-6 mt-5">
-                <table className="table table-sm text-center table-bordered">
-                  <tbody>
-                      <tr>
-                          <th>Updated date</th>
-                          <th>FeedBack</th>
-                          <th>Status</th>
-                          <th>Followup Date</th>
-                          <th>Employee Name</th>
-                      </tr>
-                  </tbody>
-                </table>
-               </div>
+              
+            
+               
             </div>
+            <div className="row mb-3"></div>
         </div>
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+         
+          <Modal.Title>Lead Modal</Modal.Title>
+        </Modal.Header>
+          <p className="text-center text-success"> {message}</p>
+        <Modal.Body>
+            <label>Add FeedBack</label>
+            <textarea  id="feedback" name="feedback" required
+            className="form-control mb-4" 
+            onChange={obj=>processFeedback(obj.target.value)}  >
+              
+
+            </textarea>
+
+            <label >Followup Date</label>
+            <input type="datetime-local" className="form-control mb-3"  required />
+ 
+             <label>Status</label>
+              <input type="text" className="form-control"  disabled = {true}  value={status} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={updateInfo}>
+             Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+         </form>
         </>
     )
 
@@ -185,40 +214,3 @@ const EditCustomer = () =>{
 export default EditCustomer;
 
 
-{/* <div className="row">
-<div className="col-md-4 mb-2 mt-2">
-
-/>
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-4 mb-2 mt-2">
-
-</div>
-<div className="col-md-12 mt-2 mb-4">
-   
-</div>
-<div className="col-md-4">
-    <button className="btn btn-success">Update customer data</button>
-</div>
-
-</div> */}
