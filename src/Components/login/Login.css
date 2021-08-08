@@ -11,6 +11,12 @@
 
 body{
     font-family: 'Poppins', sans-serif;
-    background: url();
 }
+
+.login-card{
+    border-radius: 15px;
+    box-shadow: 1px 1px 20px 5px rgba(138, 137, 137, 0.39);
+    
+}
+
 
