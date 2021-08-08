@@ -25,7 +25,7 @@ function App() {
     return (
       <Router >
         <Route exact path='/' component={Attendance} />
-       {/* <Route exact path='/' component={Dashboard} /> */}
+       <Route exact path='/dashboard' component={Dashboard} /> 
        <Route exact path='/newcustomer' component={NewCustomer} />
        <Route exact path='/allcustomer' component={Allcustomer} />
        <Route exact path='/:id/editcustomer' component={EditCustomer} />

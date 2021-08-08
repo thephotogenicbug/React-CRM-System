@@ -74,8 +74,8 @@ class Login extends Component{
                              <div className="form-group mb-3">
                                 <label>Password</label>
                                 <input type="text" 
-                                className="form-control" 
-                               onChange={this.processPassword} />
+                                className="form-control"
+                               onChange={this.processPassword}  />
                              </div>
                              <div className="form-group">
                               <button className="btn btn-primary" onClick={this.login}>
