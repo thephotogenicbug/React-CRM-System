@@ -32,9 +32,9 @@ const Allcustomer =()=>{
         <div className="container-fluid ">
             <div className="row">
                 <div className="col-md-1"></div>
-                <div className="col-md-10 mt-5">
-                   <table className="table table-bordered table-sm text-center">
-                       <thead  className="bg-success text-white">
+                <div className="col-md-10 mt-5 table-border-radius">
+                   <table className="table table-bordered table-sm text-center " >
+                       <thead  className="bg-success text-white" >
                            <tr>
                                <th>Name</th>
                                <th>Mobile No</th>
@@ -55,7 +55,7 @@ const Allcustomer =()=>{
                                     <td>{xcustomer.university}</td>
                                     <td><Link style={{textDecoration:'none'}} to={`/${xcustomer.cid}/editcustomer`} 
                                     className="text-success">
-                                   view <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye"></i>
                                     </Link>
                                     </td>
                                     </tr>

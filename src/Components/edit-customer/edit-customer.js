@@ -57,6 +57,8 @@ const EditCustomer = () =>{
        })
 
    }
+
+   
     
 
    useEffect(() =>{
@@ -64,11 +66,17 @@ const EditCustomer = () =>{
 
    },[])
 
-  // update followup and feedback 
-   const updateInfo = () =>{ 
+  // update interested and feedback 
+   const saveInterested = () =>{ 
     var empid = localStorage.getItem("id");
-    var url="http://localhost:2222/postlead";
+    var url="http://localhost:2222/postinterested";
     var jsonData ={
+        "cname" : name,
+        "cmobile": mobile,
+        "caltmobile":altmobile,
+        "cemail":email,
+        "ccourse":course,
+        "cuniversity":university,
         "cfeedback":feedback,
         "cid": id,
         "cfollowup":newdate,
@@ -86,6 +94,8 @@ const EditCustomer = () =>{
         
    }
 
+   
+
 
 
 
@@ -96,104 +106,116 @@ const EditCustomer = () =>{
          <form>
          <div className="container">
             <div className="row">
-            <div className="col-md-1"></div>
-               <div className="col-md-10">
+            
+               <div className="col-md-6">
                    <div className="card edit-customer-card mt-5">
                        <div className="card-body">
                          <p className="text-danger">Customer id is :- {id}</p>
                          <p>{message}</p>
                           <h5 style={{fontWeight:'bold'}}>Lead Update</h5>
-                            <div className="row">
-                             <div className="col-md-4">
-                             <div className="form-group mb-3">
-                            <label>Name</label>
+                          <div className="form-group mb-2">
+                          <label>Name</label>
                                 <input type="text" className="form-control"
                                 value={name}
                                 disabled = {true} />
-                            </div>
-                             </div>
-
-                              <div className="col-md-4">
-                              <div className="form-group mb-3">
-                            <label>Mobile No</label>
+                          </div>
+                          <div className="form-group mb-2">
+                          <label>Mobile No</label>
                             <input type="text" className="form-control"
                             value={mobile}
-                            disabled = {true}
-                            />
-                            </div>
-                              </div>
-                              <div className="col-md-4">
-                              <div className="form-group mb-3">
-                            <label>Alt Mobile No</label>
+                            disabled = {true} />
+                          </div>
+                          <div className="form-group mb-2">
+                          <label>Alt Mobile No</label>
                             <input type="text" className="form-control"
                             value={altmobile}
                             disabled = {true}
                             />
-                            </div>
-                              </div>
-                              <div className="col-md-4">
-                              <div className="form-group mb-3">
-                            <label>Email-ID</label>
+                          </div>
+                          <div className="form-group mb-2">
+                          <label>Email-ID</label>
                             <input type="text" className="form-control"
                             value={email}
                             disabled = {true}
                             />
-                            </div>
-                              </div>
-                              <div className="col-md-4">
-                              <div className="form-group mb-3">
-                            <label>University / College</label>
-                            <input type="text" className="form-control"
-                            value={university}
-                            disabled = {true}
-                            />
-                            </div>
-                              </div>
-                              <div className="col-md-4">
-                              <div className="form-group mb-3">
-                            <label>Course</label>
+                          </div>
+                          <div className="form-group mb-2">
+                          <label>Course</label>
                             <input type="text" className="form-control"
                             value={course}
                             disabled = {true}
                             />
-                            </div>
-                              </div>
-                              <div className="col-md-4">
-                              <div className="form-group mb-4">
-                            <label>Current Date / Time</label>
+                          </div>
+                          <div className="form-group mb-2">
+                          <label>University</label>
+                            <input type="text" className="form-control"
+                            value={university}
+                            disabled = {true}
+                            />
+                          </div>
+                          <div className="form-group mb-2">
+                          <label>Current Date / Time</label>
                             <input type="text" className="form-control"
                             value={date}
                             disabled = {true}
                             />
-                            </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-2">
-                              <div className="form-group mb-3">
-                            <Button variant="primary" onClick={interestedModal}>
-                                Interested <i class="bi bi-hand-thumbs-up"></i>
-                            </Button>
-                            </div>
-                              </div>
-                              <div className="col-md-2">
-                              <div className="form-group mb-3">
-                            <Button variant="danger" onClick={junkModal}>
-                                Junk <i class="bi bi-trash"></i>
-                            </Button>
-                            </div>
-                              </div>
-
-                            </div>
+                          </div>
+                            
                             
                         
                        </div>
                    </div>
                </div>
+               <div className="col-md-6 mt-5">
+                 <div className="card">
+                   <div className="card-body">
+                    <h5>Feedback</h5>
+                     <div className="row">
+                       <div className="col-md-1"></div>
+                       <div className="col-md-4">
+                       <Button variant="primary" onClick={interestedModal}>
+                                Interested <i class="bi bi-hand-thumbs-up"></i>
+                            </Button>
+                       </div>
+                       <div className="col-md-3">
+                       <Button variant="warning text-white" >
+                                RNR <i class="bi bi-telephone-x"></i>
+                            </Button>
+                       </div>
+                       <div className="col-md-3">
+                       <Button variant="danger" onClick={junkModal}>
+                                Junk <i class="bi bi-trash"></i>
+                            </Button>
+                       </div>
+                     </div>
+
+                     <div className="row mt-3">
+                       <div className="col-md-1"></div>
+                         <div className="col-md-4">
+                         <Button variant="success" >
+                                Admission <i class="bi bi-award"></i>
+                            </Button>
+                         </div>
+                         <div className="col-md-3">
+                         <Button variant="success" >
+                                Lead <i class="bi bi-award"></i>
+                            </Button>
+                         </div>
+                         <div className="col-md-4">
+                         <Button variant="info text-white" >
+                                Order Lost <i class="bi bi-cart-x"></i>
+                            </Button>
+                         </div>
+                     </div>
+
+                   </div>
+                 </div>
+               </div>
               
             
                
             </div>
+            
             <div className="row mb-3"></div>
         </div>
 
@@ -205,21 +227,61 @@ const EditCustomer = () =>{
         </Modal.Header>
           <p className="text-center text-success"> {message}</p>
         <Modal.Body>
+           <div className="form-group mb-4">
+             <label>Name</label>
+             <input type="text" className="form-control" value={name} 
+              onChange={obj=>processName(obj.target.value)}
+             />
+           </div>
+
+           <div className="form-group mb-4">
+             <label>Mobile</label>
+             <input type="text" className="form-control" value={mobile} 
+              onChange={obj=>processMobile(obj.target.value)}
+             />
+           </div>
+           <div className="form-group mb-4">
+             <label>Alt Mobile</label>
+             <input type="text" className="form-control" value={altmobile} 
+              onChange={obj=>processAltmobile(obj.target.value)}
+             />
+           </div>
+           <div className="form-group mb-4">
+             <label>Email-ID</label>
+             <input type="text" className="form-control" value={email} 
+             onChange={obj=>processEmail(obj.target.value)}
+             />
+           </div>
+           <div className="form-group mb-4">
+             <label>Course</label>
+             <input type="text" className="form-control" value={course} 
+              onChange={obj=>processCourse(obj.target.value)}
+             />
+           </div>
+           <div className="form-group mb-4">
+             <label>University</label>
+             <input type="text" className="form-control" value={university} 
+             onChange={obj=>processUniversity(obj.target.value)}
+             />
+           </div>
             <label>Add FeedBack</label>
             <textarea 
             className="form-control mb-4" 
             onChange={obj=>processFeedback(obj.target.value)} >
             </textarea>
 
+            <div className="form-group">
             <label >Followup Date</label>
-            <input type="datetime-local" className="form-control mb-3"  />
-
+            <input type="datetime-local" className="form-control mb-3"  
+            onChange={obj=>processNewdate(obj.target.value)}/>
+            </div>
+             
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={interestedhandleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={updateInfo}>
+          <Button variant="primary" onClick={saveInterested}>
              Save Changes
           </Button>
         </Modal.Footer>
@@ -252,42 +314,6 @@ const EditCustomer = () =>{
           </Button>
         </Modal.Footer>
       </Modal>
-
-      
-      {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-         
-          <Modal.Title>Lead Modal</Modal.Title>
-        </Modal.Header>
-          <p className="text-center text-success"> {message}</p>
-        <Modal.Body>
-            <label>Add FeedBack</label>
-            <textarea  id="feedback" name="feedback" required
-            className="form-control mb-4" 
-            onChange={obj=>processFeedback(obj.target.value)}  >
-            </textarea>
-
-            <label >Followup Date</label>
-            <input type="datetime-local" className="form-control mb-3"  required />
- 
-             <label>Status</label>
-              <select value={status} onChange={obj=>updateStatus(obj.target.value)}>
-                  <option>Select</option>
-                  <option>HotLead</option>
-                  <option>RNR</option>
-                  <option></option>
-              </select>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={updateInfo}>
-             Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
-
       
          </form>
         </>

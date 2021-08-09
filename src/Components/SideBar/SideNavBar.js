@@ -18,7 +18,7 @@ const SideNavBar = () =>{
             <div className="divider mt-5"></div>
            <div className="main-menu">
                <ul>
-                   <Link to="/">
+                   <Link to="/dashboard">
                        <a className="menu-item">
                            <div className="menu-icon">
                            <i class="fas fa-tachometer-alt"></i>
